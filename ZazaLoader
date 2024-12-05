@@ -15,22 +15,21 @@ end
 if plr.UserId == 1935923708 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Aberthegod/W/refs/heads/main/nub"))()
 else
-    print("Not Hunter Crazy!!!")
-end
-
--- Check if the player is in a private server
-if game.PrivateServerId == "" then
-    plr:Kick("You need to be in a private server to execute this. :( It is to stop people from farming in public servers.")
-    return
-end
-
--- Check game ID and load appropriate scripts
-if gameId == 2888719930 then
-    local ownsPass = game:GetService("MarketplaceService"):UserOwnsGamePassAsync(plr.UserId, gID)
-
-    if ownsPass then
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Aberthegod/ggko/main/ZAZA"))()
-    else
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Aberthegod/ggko/main/Free"))()
+    -- Check if the player is in a private server
+    if game.PrivateServerId == "" then
+        plr:Kick("You need to be in a private server to execute this. :( It is to stop people from farming in public servers.")
+        return
+    end
+    
+    -- Check game ID and load appropriate scripts
+    if gameId == 2888719930 then
+        local ownsPass = game:GetService("MarketplaceService"):UserOwnsGamePassAsync(plr.UserId, gID)
+    
+        if ownsPass then
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/Aberthegod/ggko/main/ZAZA"))()
+        else
+            print("To broke and doesn't own gamepass")
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/Aberthegod/ggko/main/Free"))()
+        end
     end
 end
