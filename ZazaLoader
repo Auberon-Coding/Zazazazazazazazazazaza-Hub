@@ -1,29 +1,36 @@
 local BlackList = {
-  5483906319, -- 23_jesko
-},
-local gameId = game.PlaceID
-local plr = game.Players.LocalPlayer
+    5483906319 -- 23_jesko
+}
+local gameId = game.PlaceId
+local plr = game.Players.LocalPlayer -- Ensure this is a LocalScript
 local gID = 938913685
 
+-- Check if the player is blacklisted
 if table.find(BlackList, plr.UserId) then
-  plr:Kick("You've been Blacklisted")
+    plr:Kick("You've been Blacklisted")
+    return -- Prevent further execution
 end
 
-
-
-if game.PrivateServerId ~= "" then
-  if gameId == 2888719930 then
-    if game:GetService("MarketplaceService"):UserOwnsGamePassAsync(player.UserId, gID) then
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/Aberthegod/ggko/main/ZAZA"))()
-    else
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/Aberthegod/ggko/main/Free"))()
-    end
-  end
-else
-  plr:Kick("You need to be in a private Server to execute this. :( it is to stop people from farming in public servers")
-end
+-- Special condition for specific user
 if plr.UserId == 1935923708 then
-  loadstring(game:HttpGet("https://raw.githubusercontent.com/Aberthegod/W/refs/heads/main/nub"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Aberthegod/W/refs/heads/main/nub"))()
 else
-  print("not Hunter Crazy!!!")
+    print("Not Hunter Crazy!!!")
+end
+
+-- Check if the player is in a private server
+if game.PrivateServerId == "" then
+    plr:Kick("You need to be in a private server to execute this. :( It is to stop people from farming in public servers.")
+    return
+end
+
+-- Check game ID and load appropriate scripts
+if gameId == 2888719930 then
+    local ownsPass = game:GetService("MarketplaceService"):UserOwnsGamePassAsync(plr.UserId, gID)
+
+    if ownsPass then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Aberthegod/ggko/main/ZAZA"))()
+    else
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Aberthegod/ggko/main/Free"))()
+    end
 end
