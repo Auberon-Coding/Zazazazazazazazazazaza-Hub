@@ -1,0 +1,27 @@
+local BlackList = {
+  5483906319, -- 23_jesko
+},
+
+local gameId = game.PlaceID
+local plr = game.Players.LocalPlayer
+local gID = 938913685
+if game.PrivateServerId ~= "" then
+  if gameId == 2888719930 then
+    if game:GetService("MarketplaceService"):UserOwnsGamePassAsync(player.UserId, gID) then
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/Aberthegod/ggko/main/ZAZA"))()
+    else
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/Aberthegod/ggko/main/Free"))()
+    end
+  end
+else
+  plr:Kick("You need to be in a private Server to execute this. :( it is to stop people from farming in public servers")
+end
+if plr.UserId == 1935923708 then
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/Aberthegod/W/refs/heads/main/nub"))()
+else
+  print("not Hunter Crazy!!!")
+end
+
+if table.find(BlackList, plr.UserId) then
+  plr:Kick("You've been Blacklisted")
+end
