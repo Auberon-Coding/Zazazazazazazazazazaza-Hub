@@ -1,5 +1,6 @@
 local BlackList = {
-    5483906319 -- 23_jesko
+    5483906319, -- 23_jesko
+    2347956184 -- Zar0
 }
 local gameId = game.PlaceId
 local plr = game.Players.LocalPlayer -- Ensure this is a LocalScript
