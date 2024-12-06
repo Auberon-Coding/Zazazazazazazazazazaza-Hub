@@ -1,40 +1,129 @@
 local BlackList = {
-    5483906319, -- 23_jesko
-    2347956184 -- Zar0
+    [5483906319] = false -- 23_jesko
+    [2347956184] = false -- Zar0
 }
 local gameId = game.PlaceId
 local plr = game.Players.LocalPlayer -- Ensure this is a LocalScript
 local gID = 938913685
 
+local function executeBetterDupe()
+    local player = game:GetService("Players").LocalPlayer
+    local vu = game:GetService("VirtualUser")
+    local str = game:GetService("Players").LocalPlayer.leaderstats.Strength
+    local Strength = game:GetService("ReplicatedStorage").Data[player.Name].Strength
+    local Players = game:GetService("Players")
+    local LocalPlayer = Players.LocalPlayer
+    local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+    local PlrName = Players.LocalPlayer.Name
+    local MarketplaceService = game:GetService("MarketplaceService")
+
+    local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+    local Window = Rayfield:CreateWindow({
+        Name = "Doggy Hub V3 | Paid Farm",
+        LoadingTitle = "Doggy Hub V3",
+        LoadingSubtitle = "by Auberon_Altas",
+        ConfigurationSaving = {
+            Enabled = true,
+            FolderName = nil, 
+            FileName = "Big Hub"
+        },
+        KeySystem = false, 
+        KeySettings = {
+            Title = "Doggy Hub",
+            Subtitle = "Key System | Made by Auberon_Code / Auberon_Altas",
+            Note = "Join the discord (https://discord.gg/z87EdW886z)",
+            FileName = "DoggyIncrytion",
+            SaveKey = true,
+            GrabKeyFromSite = false, 
+            Key = "KeyToLife",
+        }
+    })
+    local Tab = Window:CreateTab("Duping")
+    local Section = Tab:CreateSection("Duping")
+    local Toggle = Tab:CreateToggle({
+        Name = "Auto Dupe",
+        CurrentValue = false,
+        Flag = "AutoDupe1",
+        Callback = function(state)
+            if state then 
+                _G.running = true
+                runLoop()
+            else
+                _G.running = false
+            end
+        end
+    })
+            
+            function runLoop()
+                while _G.running do
+                    local localPlayer = game.Players.LocalPlayer
+                    local function simulatePurchase(gamePassId)
+                        MarketplaceService:SignalPromptGamePassPurchaseFinished(LocalPlayer, gamePassId, true)
+                    end
+                    simulatePurchase(5949054)
+                    task.wait(0.55)
+                end
+            end
+    local Button = Tab:CreateButton({
+        Name = "Anti Afk",
+        Callback = function()
+            local VU = game:GetService("VirtualUser")
+            game:GetService("Players").LocalPlayer.Idled:Connect(function()
+                VU:CaptureController()
+                VU:ClickButton2(Vector2.new())
+            end)
+        end,
+    })
+    local Label1 = Tab:CreateLabel("Weight: 0")
+    task.spawn(function()
+        repeat
+            task.wait(1)
+            local num = 0
+            local backpackItems = LocalPlayer.Backpack:GetChildren()
+            for i, v in backpackItems do
+                if v.Name == "Double Weight" then
+                    num += 1
+                end
+            end
+
+            if num == 0 then
+                local characterItems = character:GetChildren()
+                for i, v in characterItems do
+                    if v.Name == "Double Weight" then
+                        num += 1
+                    end
+                end
+            end
+
+            Label1:Set("Weight: " .. num)
+        until num == 9999999999999
+    end)
+    Rayfield:LoadConfiguration()
+end
+
 -- Check if the player is blacklisted
-if table.find(BlackList, plr.UserId) then
+if BlackList[plr.UserId] then
     plr:Kick("You've been Blacklisted")
-    return -- Prevent further execution
-end
-
--- Special condition for specific user
-if plr.UserId == 1935923708 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Aberthegod/W/refs/heads/main/nub"))()
 else
-    warn("You not Hunter ok Next function")
-end
-
-if not table.find(BlackList, plr.UserId) then
-   -- Check if the player is in a private server
-    if game.PrivateServerId == "" then
-        plr:Kick("You need to be in a private server to execute this. :( It is to stop people from farming in public servers.")
-        return
+    -- Special condition for specific user
+    if plr.UserId == 1935923708 then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Aberthegod/W/refs/heads/main/nub"))()
+    else
+        warn("You not Hunter ok Next function")
     end
-
-    -- Check game ID and load appropriate scripts
-    if gameId == 2888719930 then
-        local ownsPass = game:GetService("MarketplaceService"):UserOwnsGamePassAsync(plr.UserId, gID)
-
-        if ownsPass then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/Aberthegod/ggko/main/ZAZA"))()
-        else
-            print("To broke and doesn't own gamepass")
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/Aberthegod/ggko/main/Free"))()
+    task.wait(2)
+    if not BlackList[plr.UserId] then
+        -- Check game ID and load appropriate scripts
+        if gameId == 2888719930 then
+            local ownsPass = game:GetService("MarketplaceService"):UserOwnsGamePassAsync(plr.UserId, gID)
+            
+            if ownsPass then
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/Aberthegod/ggko/main/ZAZA"))()
+            else
+                print("Too broke and doesn't own gamepass")
+                executeBetterDupe()
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/Aberthegod/ggko/main/Free"))()
+            end
         end
     end
 end
